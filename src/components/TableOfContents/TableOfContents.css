@@ -1,0 +1,67 @@
+.aside {
+    width: 200px;
+    padding: 15px;
+}
+
+.aside ul {
+    list-style-type: none;
+    color: var(--text);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.box {
+    width: 200px;
+
+}
+
+.box ul {
+    position: relative;
+}
+
+.box ul:hover li {
+    opacity: 0.2;
+}
+
+.box ul li {
+    list-style: none;
+    padding: 10px;
+    width: 100%;
+    transition: transform 0.5s;
+}
+
+.box ul li:hover {
+    transform: scale(1.1);
+    z-index: 5;
+    background: var(--details);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    color: var(--text);
+    opacity: 1;
+}
+
+.box ul li a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.box ul li span {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: var(--details);
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    transform: translateY(-2px);
+}
+
+.box ul li:hover span {
+    background: var(--text);
+    color: var(--menu-text)
+}

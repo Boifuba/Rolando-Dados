@@ -1,0 +1,127 @@
+.centralizar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-opacity);
+    padding: 70px;
+    border-top: 3px solid var(--details-opacity);
+
+}
+
+.chamada-h1 {
+    text-align: center;
+    color: var(--details);
+    margin-bottom: 60px;
+}
+
+.nossotime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-grid {
+    display: flex;
+    gap: 40px;
+    justify-items: center;
+    text-align: center;
+
+}
+
+
+
+.time-grid img {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+
+    @media screen and (max-width: 600px) {
+        height: 100px;
+    }
+
+}
+
+.nome {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 10px;
+
+    @media screen and (max-width: 600px) {
+        height: 40px;
+        font-size: 1.2rem;
+        margin-top: 1px;
+    }
+
+}
+
+.cargo {
+    font-size: 0.8rem;
+    color: gray;
+    width: 150px;
+}
+
+/* .intro {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 10px;
+    width: 250px;
+
+    @media screen and (max-width: 600px) {
+        width: 100px;
+    }
+} */
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    width: 150px;
+    opacity: 90%;
+    transition: .5s ease;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+    box-sizing: border-box;
+    outline: 3px solid rgba(232, 232, 232, 0.5);
+    outline-offset: -10px;
+    transition: transform 1s ease;
+
+}
+
+
+
+.team-item:hover .overlay {
+    opacity: 0.75;
+}
+
+/* .text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+*/
+.number {
+    color: gold;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.ranking {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

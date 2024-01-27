@@ -1,0 +1,30 @@
+.content {
+    box-sizing: border-box;
+    padding: 50px;
+}
+
+
+.title {
+    background-color: tomato;
+    color: white;
+    height: 50px;
+    font-size: 30px;
+    font-weight: 700;
+    padding: 5px 0 5px 25px;
+}
+
+.f-container {
+    display: grid;
+    grid-template-columns: 950px 150px;
+}
+
+
+.indice ul {
+    list-style-type: decimal !important;
+    padding-left: 10px;
+}
+
+.indice li,
+.indice a {
+    color: var(--text)
+}

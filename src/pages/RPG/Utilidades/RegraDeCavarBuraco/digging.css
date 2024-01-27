@@ -1,0 +1,115 @@
+.content {
+    padding: 50px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+}
+
+.title,
+h1,
+h2,
+h3 {
+    color: var(--details);
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.column-1,
+.column-2,
+.column-3 {
+    width: 350px;
+}
+
+.column-3 {
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid var(--details);
+}
+
+label {
+    display: flex;
+    color: var(--details);
+    font-size: 20px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+input {
+    flex-grow: 1;
+    margin-left: 10px;
+    justify-content: flex-end;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 18px;
+    border: 1px solid var(--bg);
+    height: 40px;
+    width: 100%;
+
+}
+
+select {
+    display: flex;
+    width: 100%;
+    margin-left: 10px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 18px;
+    border: 1px solid var(--bg);
+    height: 40px;
+}
+
+
+
+.result {
+    color: var(--text);
+    margin: 0;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.image-box {
+    position: relative;
+    width: 1200px;
+    height: 400px;
+    margin: auto;
+}
+
+.image-box img {
+    width: 1200px;
+    height: 400px;
+    object-fit: cover;
+
+
+}
+
+.share-buttons {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.share-buttons svg {
+    width: 50px;
+    height: 50px;
+}
+
+.button-container {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}

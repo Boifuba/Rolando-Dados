@@ -1,0 +1,54 @@
+.type {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 80px;
+    background-color: var(--bg-opacity);
+    border-bottom: 3px solid var(--details-opacity);
+    margin-bottom: 50px;
+}
+
+
+
+.type #typewriter {
+    flex-wrap: wrap;
+    text-align: center;
+    color: var(--details);
+    font-size: 55px;
+    font-family: "Fjalla One", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .type {
+        height: 200px;
+        flex-direction: column;
+        gap: 1px;
+    }
+
+    .type #typewriter {
+        font-size: 50px;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+    .type {
+        height: 250px;
+        flex-direction: column;
+        gap: 1px;
+    }
+
+    .type #typewriter {
+        font-size: 50px;
+    }
+
+}

@@ -1,0 +1,9 @@
+.share-buttons {
+    display: flex;
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 10px
+}
