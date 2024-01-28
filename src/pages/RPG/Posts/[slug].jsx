@@ -10,11 +10,20 @@ import ShareButtonsHorizontal from "@/components/SharedButtons/SharedButonsHoriz
 import Related from "@/components/Related/Related";
 import Head from "next/head";
 
-export async function getServerSideProps(context) {
-  const q = query(
-    collection(db, "posts"),
-    where("path", "==", context.params.slug)
-  );
+export async function getStaticPaths() {
+  const q = query(collection(db, "posts"));
+  const querySnapshot = await getDocs(q);
+
+  // Get the paths we want to pre-render based on posts
+  const paths = querySnapshot.docs.map((doc) => ({
+    params: { slug: doc.data().path },
+  }));
+
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const q = query(collection(db, "posts"), where("path", "==", params.slug));
   const querySnapshot = await getDocs(q);
 
   if (!querySnapshot.empty) {
@@ -23,6 +32,7 @@ export async function getServerSideProps(context) {
       props: {
         post: postData,
       },
+      revalidate: 1,
     };
   }
 
@@ -30,22 +40,12 @@ export async function getServerSideProps(context) {
     notFound: true,
   };
 }
-
 export default function Post({ post }) {
   const router = useRouter();
   const path = router.asPath.split("/").pop();
-  const [url, setUrl] = useState("");
-  const [title, setTitle] = useState("");
 
-  useEffect(() => {
-    if (post) {
-      const url = "https://rolandodados.com.br/RPG/Posts/" + post.path;
-      const title = post.title;
-
-      setUrl(url);
-      setTitle(title);
-    }
-  }, [post]);
+  const url = "https://rolandodados.com.br/RPG/Posts/" + post.path;
+  const title = post.title;
   const contentRef = useRef();
 
   useEffect(() => {
@@ -54,23 +54,6 @@ export default function Post({ post }) {
     }
   }, [post]);
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://utteranc.es/client.js";
-    script.async = true;
-    script.setAttribute("repo", "Rolando-Dados");
-    script.setAttribute("issue-term", "pathname");
-    script.setAttribute("theme", "github-light");
-    script.setAttribute("crossorigin", "anonymous");
-
-    const utterances = document.getElementById("utterances");
-    if (utterances) utterances.appendChild(script);
-
-    // Cleanup function: remove the script on unmount to prevent multiple script tags
-    return () => {
-      if (utterances) utterances.firstChild.remove();
-    };
-  }, []);
   return (
     <>
       <Head>
@@ -129,7 +112,6 @@ export default function Post({ post }) {
                   <TableOfContents />
                   {/* <h3>Publicidade</h3> */}
                 </div>
-                <div id="utterances"></div>
               </div>
             </div>
           ) : (

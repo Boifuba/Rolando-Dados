@@ -11,6 +11,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { db, auth } from "@/pages/_app"; // Import your Firebase configuration
+import { sendPasswordResetEmail } from "firebase/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -63,6 +64,18 @@ export default function Login() {
         toast.error("Falha ao logar!  ");
       });
   };
+  const onForgotPassword = (event) => {
+    event.preventDefault();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        toast.success("Email de redefinição de senha enviado!");
+      })
+      .catch((error) => {
+        toast.error(
+          `Falha ao enviar email de redefinição de senha: ${error.message}`
+        );
+      });
+  };
 
   return (
     <div className="content">
@@ -87,7 +100,9 @@ export default function Login() {
               onChange={(e) => setPasswordOne(e.target.value)}
               autoComplete="current-password"
             />
-            <a href="#">Esqueceu a senha?</a>
+            <a href="#" onClick={onForgotPassword}>
+              Esqueceu a senha?
+            </a>{" "}
             <input type="submit" className="button" value="Login" />
           </form>
           <div className="signup">

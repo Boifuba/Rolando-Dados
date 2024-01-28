@@ -26,6 +26,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-share": "^5.0.3",
     "react-toastify": "^10.0.3",
+    "react-utterances": "^0.6.4",
     "sharp": "^0.33.2",
     "sitemap": "^7.1.1",
     "tinymce": "^6.8.2",

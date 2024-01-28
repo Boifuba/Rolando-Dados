@@ -13,12 +13,12 @@ export default function Footer() {
 
   return (
     <div className="footer-navigation">
-      <div className="column">
+      <div className="footer-column">
         <div className="footer-logo">
           <Image src={"/rd.png"} width={80} height={80} alt={"Rolando Dados"} />
         </div>
       </div>
-      <div className="column">
+      <div className="footer-column">
         <div className="footer-title">
           <h3>Menu</h3>
         </div>
@@ -34,7 +34,7 @@ export default function Footer() {
           </li>
         </ul>
       </div>
-      <div className="column">
+      <div className="footer-column">
         <div className="footer-title">
           <h3>Contatos</h3>
         </div>
@@ -43,7 +43,7 @@ export default function Footer() {
           <li> balduros@gmail.com</li>
         </ul>
       </div>
-      <div className="column">
+      <div className="footer-column">
         <div className="footer-title">
           <h3>Outros</h3>
         </div>

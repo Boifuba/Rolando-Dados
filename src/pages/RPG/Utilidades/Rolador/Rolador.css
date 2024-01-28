@@ -1,0 +1,82 @@
+.content {
+    padding: 50px;
+}
+
+
+.dices {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 2px solid #000;
+    border-radius: 18px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.dices img:hover {
+
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.logs {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #000;
+    border-radius: 18px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #000;
+    font-size: 20px;
+}
+
+
+.poll {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #000;
+    border-radius: 18px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #000;
+    height: 120px;
+}
+
+.poll>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modificador {
+    font-size: 34px;
+    font-weight: bold;
+    width: 90px;
+    padding: 10px;
+    text-align: center;
+}
+
+.numeros {
+    font-size: 34px;
+    font-weight: bold;
+    width: 28px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    gap: 10px;
+}

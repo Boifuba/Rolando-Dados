@@ -5,8 +5,8 @@
 
 
 .title {
-    background-color: tomato;
-    color: white;
+    background-color: var(--details);
+    color: var(--text);
     height: 50px;
     font-size: 30px;
     font-weight: 700;

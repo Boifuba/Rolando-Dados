@@ -7,29 +7,28 @@ export default function Home() {
   function richSnipper() {
     return {
       __html: `{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    url: "https://www.rolandodados.com.br/rpg",
-    name: "Campanhas do Boi",
-    logo: "https://www.rolandodados.com.br/rpg/favicon/android-chrome-192x192.png",
-    sameAs: [
-      "https://www.facebook.com/rolandodados",
-      "https://twitter.com/rolandodados",
-      "https://discord.com/invite/223PjGAM2Y",
-    ],
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Niterói",
-      addressRegion: "Rio de Janeiro",
-      addressCountry: "BR",
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+55-21-96667-2252",
-      contactType: "Atendimento",
-    },
-  };
-`,
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "https://www.rolandodados.com.br/rpg",
+        "name": "Rolando Dados",
+        "logo": "https://www.rolandodados.com.br/rd.png",
+        "sameAs": [
+          "https://www.facebook.com/rolandodados",
+          "https://twitter.com/rolandodados",
+          "https://discord.com/invite/223PjGAM2Y"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Niterói",
+          "addressRegion": "Rio de Janeiro",
+          "addressCountry": "BR"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+55-21-96667-2252",
+          "contactType": "Atendimento"
+        }
+      }`,
     };
   }
   return (

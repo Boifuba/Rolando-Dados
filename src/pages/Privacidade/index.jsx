@@ -5,7 +5,7 @@ export default function Privacidade() {
     <>
       <Head>
         <title>Política de Privacidade</title>
-        <link rel="icon" href="/rpg/boi.svg" />
+        <link rel="icon" href="/rd.png" />
 
         <meta
           name="description"
@@ -13,16 +13,16 @@ export default function Privacidade() {
         />
 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/rpg/favicon/favicon-32x32.png" />
+        <link rel="icon" href="/favicon.png" />
 
         <meta
           property="og:image"
-          content="https://rolandodados.com.br/rpg/face.jpg"
+          content="https://rolandodados.com.br/face.jpg"
         />
         <meta name="keywords" content="RPG,Política de Privacidade, GURPS" />
         <meta name="author" content="Boifubá" />
       </Head>
-      <div className="wrapper">
+      <div className="content">
         <div className="title">/Privacidade</div>
         <h1>Política de Privacidade</h1>
 
