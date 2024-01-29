@@ -10,6 +10,9 @@ import ShareButtonsHorizontal from "@/components/SharedButtons/SharedButonsHoriz
 import Related from "@/components/Related/Related";
 import Head from "next/head";
 
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
 export async function getStaticPaths() {
   const q = query(collection(db, "posts"));
   const querySnapshot = await getDocs(q);
@@ -28,6 +31,20 @@ export async function getStaticProps({ params }) {
 
   if (!querySnapshot.empty) {
     const postData = querySnapshot.docs[0].data();
+
+    // Tente formatar a data
+    try {
+      const date = new Date(postData.date);
+      const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy", {
+        locale: ptBR,
+      });
+
+      // Adicione a data formatada aos dados do post
+      postData.formattedDate = formattedDate;
+    } catch (error) {
+      console.error("Erro ao formatar a data:", error);
+    }
+
     return {
       props: {
         post: postData,
@@ -35,11 +52,8 @@ export async function getStaticProps({ params }) {
       revalidate: 1,
     };
   }
-
-  return {
-    notFound: true,
-  };
 }
+
 export default function Post({ post }) {
   const router = useRouter();
   const path = router.asPath.split("/").pop();
@@ -106,6 +120,17 @@ export default function Post({ post }) {
                   <Related />
                 </div>
                 <div className="aside">
+                  <div className="autor">
+                    <img src={post.avatar} alt={post.author} />
+                    <div className="autor-text">
+                      <p>
+                        Escrito por{" "}
+                        <span className="detalhe">{post.author} </span>em{" "}
+                        <span className="detalhe">{post.formattedDate}</span>
+                      </p>
+                    </div>
+                  </div>
+
                   <h3>Sistemas</h3>
                   <Tags />
                   <h3>Navegador</h3>

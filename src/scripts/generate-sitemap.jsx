@@ -51,6 +51,11 @@ const routes = [
     changefreq: "daily",
     priority: 1,
   },
+  {
+    url: "/RPG/Utilidades/Rolador",
+    changefreq: "daily",
+    priority: 1,
+  },
 ];
 
 const sitemap = new SitemapStream({

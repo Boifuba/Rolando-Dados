@@ -36,8 +36,6 @@ header {
     box-sizing: border-box;
 }
 
-
-
 .menu-navigation-dark a:first-child {
     border-left: 1px solid #161718;
 }
@@ -126,4 +124,10 @@ header {
     width: 32px;
     border-radius: 50%;
     margin-bottom: 0;
+}
+
+.logo-link {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }

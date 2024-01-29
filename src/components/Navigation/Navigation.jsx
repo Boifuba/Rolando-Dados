@@ -54,7 +54,7 @@ export default function Navigation() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setIsLogged(true); // Update isLogged state
+        setIsLogged(true);
         const userDocRef = doc(db, "users", user.uid);
         getDoc(userDocRef).then((docSnapshot) => {
           if (docSnapshot.exists()) {
@@ -62,7 +62,7 @@ export default function Navigation() {
           }
         });
       } else {
-        setIsLogged(false); // Update isLogged state
+        setIsLogged(false);
       }
     });
   }, []);
@@ -72,26 +72,29 @@ export default function Navigation() {
       const docRef = doc(db, "users", auth.currentUser.uid);
       getDoc(docRef).then((docSnap) => {
         if (docSnap.exists()) {
-          setUserImage(docSnap.data().avatar); // Use setUserImage instead of setAvatar
+          setUserImage(docSnap.data().avatar);
         } else {
           console.error("No such document!");
         }
       });
     }
   }, [isLogged]);
+
   return (
     <nav className="menu-navigation-dark">
       <header>
         <ToastContainer />
 
         <div>
-          <Image
-            src={"/rd.png"}
-            alt={"Logo do servidor do RPG de Mesa"}
-            width={150}
-            height={150}
-            priority={true}
-          />
+          <Link href="/" className="logo-link">
+            <Image
+              src={"/rd.png"}
+              alt={"Logo do servidor do RPG de Mesa"}
+              width={150}
+              height={150}
+              priority={true}
+            />
+          </Link>
         </div>
       </header>
       <Link className={pathname === "/" ? "selected" : null} href={"/"}>
@@ -136,7 +139,6 @@ export default function Navigation() {
             event.preventDefault();
             setSubmenuOpen(!isSubmenuOpen);
           }}
-          rel="nofollow"
         >
           {isLogged && userImage ? (
             <Image
