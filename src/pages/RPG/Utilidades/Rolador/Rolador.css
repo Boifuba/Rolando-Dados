@@ -1,48 +1,59 @@
 .content {
     padding: 50px;
+
 }
 
+.content h1,
+h2 {
+    text-align: center;
+    color: var(--text);
+    margin: 30px 30px;
+}
 
 .dices {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    border: 2px solid #000;
-    border-radius: 18px;
     padding: 20px;
-    cursor: pointer;
+    background-color: var(--details);
+    border-radius: 15px;
 }
 
-.dices img:hover {
 
-    color: #fff;
+
+.dices img:hover {
     transform: scale(1.1);
+    cursor: pointer;
 }
 
 .logs {
     display: flex;
     flex-direction: column;
-    border: 2px solid #000;
-    border-radius: 18px;
     padding: 20px;
     margin-top: 20px;
-    background-color: #000;
     font-size: 20px;
+    color: var(--text);
+    min-height: 600px;
+    border-radius: 15px;
+    border: 1px solid var(--text);
 }
 
 
 .poll {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     text-align: center;
-    border: 2px solid #000;
+    border: 2px solid #161a1d;
     border-radius: 18px;
     padding: 20px;
     margin-top: 20px;
-    background-color: #000;
-    height: 120px;
+    background-color: #161a1d;
+    min-height: 120px;
+    color: var(--details);
 }
+
 
 .poll>div {
     display: flex;
@@ -64,10 +75,18 @@
     width: 28px;
 }
 
+input[type="number"] {
+    font-size: 20px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    font-size: 28px;
+    border-radius: 15px;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
-    margin: 0;
 }
 
 input[type="number"] {
@@ -79,4 +98,9 @@ input[type="number"] {
     justify-content: center;
     margin: 10px;
     gap: 10px;
+}
+
+.logs-title {
+    text-align: center;
+    color: var(--text);
 }

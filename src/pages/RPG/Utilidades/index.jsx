@@ -11,15 +11,21 @@ export default function Utilidades() {
         <Link href={"/RPG/Utilidades/RegraDeCavarBuraco"}>
           <i>
             <FaPersonDigging />
-          </i>{" "}
+          </i>
           <span>Regra de Cavar Buraco</span>
         </Link>
         <Link href={"/RPG/Utilidades/Prata"}>
           <i>
             <GiTwoCoins />
-          </i>{" "}
+          </i>
           <span>Calculadora de Prata</span>
-        </Link>{" "}
+        </Link>
+        <Link href={"/RPG/Utilidades/Rolador"}>
+          <i>
+            <GiTwoCoins />
+          </i>{" "}
+          <span>Rolador de Dados</span>
+        </Link>
       </div>
     </div>
   );

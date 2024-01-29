@@ -7,7 +7,21 @@ class MyDocument extends Document {
       <Html lang="pt-BR">
         <Head>
           <link rel="icon" href="/favicon.png" />
-          {/* Outros elementos de cabeçalho */}
+
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-FBCKHQBVHM"
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-FBCKHQBVHM');
+              `,
+            }}
+          />
         </Head>
         <body>
           <Main />

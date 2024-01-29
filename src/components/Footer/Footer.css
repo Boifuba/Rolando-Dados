@@ -39,6 +39,10 @@
     text-align: center;
 }
 
+.footer-title li {
+    color: #f4f4f4
+}
+
 .footer-title h3 {
     font-size: 20px;
     font-weight: 400;
