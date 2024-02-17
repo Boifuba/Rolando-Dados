@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { auth, db } from "../pages/_app"; // Importe sua configuração do Firebase
+import { auth, db } from "@/utils/firebase"; // Importe sua configuração do Firebase
 import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 

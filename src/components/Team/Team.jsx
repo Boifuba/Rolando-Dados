@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/pages/_app";
+import { db } from "@/utils/firebase";
 import "./Team.css";
 import Image from "next/image";
 

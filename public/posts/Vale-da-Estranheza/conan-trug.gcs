@@ -1,0 +1,3159 @@
+{
+	"type": "character",
+	"version": 4,
+	"id": "b15cf83a-b321-4302-a9f9-82ded2fd1b70",
+	"total_points": 180,
+	"points_record": [
+		{
+			"when": "2024-01-30T21:49:09-03:00",
+			"points": 180,
+			"reason": "Initial points"
+		}
+	],
+	"profile": {
+		"name": "Truske",
+		"age": "30",
+		"birthday": "January 31",
+		"eyes": "Brown",
+		"hair": "Black",
+		"skin": "Dark Brown",
+		"handedness": "Right",
+		"gender": "Male",
+		"height": "5'3.9972\"",
+		"weight": "140 lb",
+		"player_name": "Elton",
+		"title": "Hunter",
+		"organization": "solo",
+		"tech_level": "3"
+	},
+	"settings": {
+		"page": {
+			"paper_size": "letter",
+			"orientation": "portrait",
+			"top_margin": "0.25 in",
+			"left_margin": "0.25 in",
+			"bottom_margin": "0.25 in",
+			"right_margin": "0.25 in"
+		},
+		"block_layout": [
+			"reactions conditional_modifiers",
+			"melee",
+			"ranged",
+			"traits skills",
+			"spells",
+			"equipment",
+			"other_equipment",
+			"notes"
+		],
+		"attributes": [
+			{
+				"id": "st",
+				"type": "integer",
+				"name": "ST",
+				"full_name": "Strength",
+				"attribute_base": "10",
+				"cost_per_point": 10,
+				"cost_adj_percent_per_sm": 10
+			},
+			{
+				"id": "dx",
+				"type": "integer",
+				"name": "DX",
+				"full_name": "Dexterity",
+				"attribute_base": "10",
+				"cost_per_point": 20
+			},
+			{
+				"id": "iq",
+				"type": "integer",
+				"name": "IQ",
+				"full_name": "Intelligence",
+				"attribute_base": "10",
+				"cost_per_point": 20
+			},
+			{
+				"id": "ht",
+				"type": "integer",
+				"name": "HT",
+				"full_name": "Health",
+				"attribute_base": "10",
+				"cost_per_point": 10
+			},
+			{
+				"id": "will",
+				"type": "integer",
+				"name": "Will",
+				"attribute_base": "$iq",
+				"cost_per_point": 5
+			},
+			{
+				"id": "fright_check",
+				"type": "integer",
+				"name": "Fright Check",
+				"attribute_base": "$will",
+				"cost_per_point": 2
+			},
+			{
+				"id": "per",
+				"type": "integer",
+				"name": "Per",
+				"full_name": "Perception",
+				"attribute_base": "$iq",
+				"cost_per_point": 5
+			},
+			{
+				"id": "vision",
+				"type": "integer",
+				"name": "Vision",
+				"attribute_base": "$per",
+				"cost_per_point": 2
+			},
+			{
+				"id": "hearing",
+				"type": "integer",
+				"name": "Hearing",
+				"attribute_base": "$per",
+				"cost_per_point": 2
+			},
+			{
+				"id": "taste_smell",
+				"type": "integer",
+				"name": "Taste \u0026 Smell",
+				"attribute_base": "$per",
+				"cost_per_point": 2
+			},
+			{
+				"id": "touch",
+				"type": "integer",
+				"name": "Touch",
+				"attribute_base": "$per",
+				"cost_per_point": 2
+			},
+			{
+				"id": "basic_speed",
+				"type": "decimal",
+				"name": "Basic Speed",
+				"attribute_base": "($dx+$ht)/4",
+				"cost_per_point": 20
+			},
+			{
+				"id": "basic_move",
+				"type": "integer",
+				"name": "Basic Move",
+				"attribute_base": "floor($basic_speed)",
+				"cost_per_point": 5
+			},
+			{
+				"id": "fp",
+				"type": "pool",
+				"name": "FP",
+				"full_name": "Fatigue Points",
+				"attribute_base": "$ht",
+				"cost_per_point": 3,
+				"thresholds": [
+					{
+						"state": "Unconscious",
+						"expression": "-$fp",
+						"ops": [
+							"halve_move",
+							"halve_dodge",
+							"halve_st"
+						]
+					},
+					{
+						"state": "Collapse",
+						"expression": "0",
+						"explanation": "Roll vs. Will to do anything besides talk or rest; failure causes unconsciousness\nEach FP you lose below 0 also causes 1 HP of injury\nMove, Dodge and ST are halved (B426)",
+						"ops": [
+							"halve_move",
+							"halve_dodge",
+							"halve_st"
+						]
+					},
+					{
+						"state": "Tired",
+						"expression": "round($fp/3)",
+						"explanation": "Move, Dodge and ST are halved (B426)",
+						"ops": [
+							"halve_move",
+							"halve_dodge",
+							"halve_st"
+						]
+					},
+					{
+						"state": "Tiring",
+						"expression": "$fp-1"
+					},
+					{
+						"state": "Rested",
+						"expression": "$fp"
+					}
+				]
+			},
+			{
+				"id": "hp",
+				"type": "pool",
+				"name": "HP",
+				"full_name": "Hit Points",
+				"attribute_base": "$st",
+				"cost_per_point": 2,
+				"cost_adj_percent_per_sm": 10,
+				"thresholds": [
+					{
+						"state": "Dead",
+						"expression": "round(-$hp*5)",
+						"ops": [
+							"halve_move",
+							"halve_dodge"
+						]
+					},
+					{
+						"state": "Dying #4",
+						"expression": "round(-$hp*4)",
+						"explanation": "Roll vs. HT to avoid death\nRoll vs. HT-4 every second to avoid falling unconscious\nMove and Dodge are halved (B419)",
+						"ops": [
+							"halve_move",
+							"halve_dodge"
+						]
+					},
+					{
+						"state": "Dying #3",
+						"expression": "round(-$hp*3)",
+						"explanation": "Roll vs. HT to avoid death\nRoll vs. HT-3 every second to avoid falling unconscious\nMove and Dodge are halved (B419)",
+						"ops": [
+							"halve_move",
+							"halve_dodge"
+						]
+					},
+					{
+						"state": "Dying #2",
+						"expression": "round(-$hp*2)",
+						"explanation": "Roll vs. HT to avoid death\nRoll vs. HT-2 every second to avoid falling unconscious\nMove and Dodge are halved (B419)",
+						"ops": [
+							"halve_move",
+							"halve_dodge"
+						]
+					},
+					{
+						"state": "Dying #1",
+						"expression": "-$hp",
+						"explanation": "Roll vs. HT to avoid death\nRoll vs. HT-1 every second to avoid falling unconscious\nMove and Dodge are halved (B419)",
+						"ops": [
+							"halve_move",
+							"halve_dodge"
+						]
+					},
+					{
+						"state": "Collapse",
+						"expression": "0",
+						"explanation": "Roll vs. HT every second to avoid falling unconscious\nMove and Dodge are halved (B419)",
+						"ops": [
+							"halve_move",
+							"halve_dodge"
+						]
+					},
+					{
+						"state": "Reeling",
+						"expression": "round($hp/3)",
+						"explanation": "Move and Dodge are halved (B419)",
+						"ops": [
+							"halve_move",
+							"halve_dodge"
+						]
+					},
+					{
+						"state": "Wounded",
+						"expression": "$hp-1"
+					},
+					{
+						"state": "Healthy",
+						"expression": "$hp"
+					}
+				]
+			}
+		],
+		"body_type": {
+			"name": "Humanoid",
+			"roll": "3d",
+			"locations": [
+				{
+					"id": "eye",
+					"choice_name": "Eyes",
+					"table_name": "Eyes",
+					"hit_penalty": -9,
+					"description": "An attack that misses by 1 hits the torso instead. Only\nimpaling (imp), piercing (pi-, pi, pi+, pi++), and\ntight-beam burning (burn) attacks can target the eye – and\nonly from the front or sides. Injury over HP÷10 blinds the\neye. Otherwise, treat as skull, but without the extra DR!",
+					"calc": {
+						"roll_range": "-",
+						"dr": {
+							"all": 0
+						}
+					}
+				},
+				{
+					"id": "skull",
+					"choice_name": "Skull",
+					"table_name": "Skull",
+					"slots": 2,
+					"hit_penalty": -7,
+					"dr_bonus": 2,
+					"description": "An attack that misses by 1 hits the torso instead. Wounding\nmodifier is x4. Knockdown rolls are at -10. Critical hits\nuse the Critical Head Blow Table (B556). Exception: These\nspecial effects do not apply to toxic (tox) damage.",
+					"calc": {
+						"roll_range": "3-4",
+						"dr": {
+							"all": 3
+						}
+					}
+				},
+				{
+					"id": "face",
+					"choice_name": "Face",
+					"table_name": "Face",
+					"slots": 1,
+					"hit_penalty": -5,
+					"description": "An attack that misses by 1 hits the torso instead. Jaw,\ncheeks, nose, ears, etc. If the target has an open-faced\nhelmet, ignore its DR. Knockdown rolls are at -5. Critical\nhits use the Critical Head Blow Table (B556). Corrosion\n(cor) damage gets a x1½ wounding modifier, and if it\ninflicts a major wound, it also blinds one eye (both eyes on\ndamage over full HP). Random attacks from behind hit the\nskull instead.",
+					"calc": {
+						"roll_range": "5",
+						"dr": {
+							"all": 0
+						}
+					}
+				},
+				{
+					"id": "leg",
+					"choice_name": "Leg",
+					"table_name": "Right Leg",
+					"slots": 2,
+					"hit_penalty": -2,
+					"description": "Reduce the wounding multiplier of large piercing (pi+), huge\npiercing (pi++), and impaling (imp) damage to x1. Any major\nwound (loss of over ½ HP from one blow) cripples the limb.\nDamage beyond that threshold is lost.",
+					"calc": {
+						"roll_range": "6-7",
+						"dr": {
+							"all": 1
+						}
+					}
+				},
+				{
+					"id": "arm",
+					"choice_name": "Arm",
+					"table_name": "Right Arm",
+					"slots": 1,
+					"hit_penalty": -2,
+					"description": "Reduce the wounding multiplier of large piercing (pi+), huge\npiercing (pi++), and impaling (imp) damage to x1. Any major\nwound (loss of over ½ HP from one blow) cripples the limb.\nDamage beyond that threshold is lost. If holding a shield,\ndouble the penalty to hit: -4 for shield arm instead of -2.",
+					"calc": {
+						"roll_range": "8",
+						"dr": {
+							"all": 1
+						}
+					}
+				},
+				{
+					"id": "torso",
+					"choice_name": "Torso",
+					"table_name": "Torso",
+					"slots": 2,
+					"calc": {
+						"roll_range": "9-10",
+						"dr": {
+							"all": 1
+						}
+					}
+				},
+				{
+					"id": "groin",
+					"choice_name": "Groin",
+					"table_name": "Groin",
+					"slots": 1,
+					"hit_penalty": -3,
+					"description": "An attack that misses by 1 hits the torso instead. Human\nmales and the males of similar species suffer double shock\nfrom crushing (cr) damage, and get -5 to knockdown rolls.\nOtherwise, treat as a torso hit.",
+					"calc": {
+						"roll_range": "11",
+						"dr": {
+							"all": 1
+						}
+					}
+				},
+				{
+					"id": "arm",
+					"choice_name": "Arm",
+					"table_name": "Left Arm",
+					"slots": 1,
+					"hit_penalty": -2,
+					"description": "Reduce the wounding multiplier of large piercing (pi+), huge\npiercing (pi++), and impaling (imp) damage to x1. Any major\nwound (loss of over ½ HP from one blow) cripples the limb.\nDamage beyond that threshold is lost. If holding a shield,\ndouble the penalty to hit: -4 for shield arm instead of -2.",
+					"calc": {
+						"roll_range": "12",
+						"dr": {
+							"all": 1
+						}
+					}
+				},
+				{
+					"id": "leg",
+					"choice_name": "Leg",
+					"table_name": "Left Leg",
+					"slots": 2,
+					"hit_penalty": -2,
+					"description": "Reduce the wounding multiplier of large piercing (pi+), huge\npiercing (pi++), and impaling (imp) damage to x1. Any major\nwound (loss of over ½ HP from one blow) cripples the limb.\nDamage beyond that threshold is lost.",
+					"calc": {
+						"roll_range": "13-14",
+						"dr": {
+							"all": 1
+						}
+					}
+				},
+				{
+					"id": "hand",
+					"choice_name": "Hand",
+					"table_name": "Hand",
+					"slots": 1,
+					"hit_penalty": -4,
+					"description": "If holding a shield, double the penalty to hit: -8 for\nshield hand instead of -4. Reduce the wounding multiplier of\nlarge piercing (pi+), huge piercing (pi++), and impaling\n(imp) damage to x1. Any major wound (loss of over ⅓ HP\nfrom one blow) cripples the extremity. Damage beyond that\nthreshold is lost.",
+					"calc": {
+						"roll_range": "15",
+						"dr": {
+							"all": 0
+						}
+					}
+				},
+				{
+					"id": "foot",
+					"choice_name": "Foot",
+					"table_name": "Foot",
+					"slots": 1,
+					"hit_penalty": -4,
+					"description": "Reduce the wounding multiplier of large piercing (pi+), huge\npiercing (pi++), and impaling (imp) damage to x1. Any major\nwound (loss of over ⅓ HP from one blow) cripples the\nextremity. Damage beyond that threshold is lost.",
+					"calc": {
+						"roll_range": "16",
+						"dr": {
+							"all": 2
+						}
+					}
+				},
+				{
+					"id": "neck",
+					"choice_name": "Neck",
+					"table_name": "Neck",
+					"slots": 2,
+					"hit_penalty": -5,
+					"description": "An attack that misses by 1 hits the torso instead. Neck and\nthroat. Increase the wounding multiplier of crushing (cr)\nand corrosion (cor) attacks to x1½, and that of cutting\n(cut) damage to x2. At the GM’s option, anyone killed by a\ncutting (cut) blow to the neck is decapitated!",
+					"calc": {
+						"roll_range": "17-18",
+						"dr": {
+							"all": 0
+						}
+					}
+				},
+				{
+					"id": "vitals",
+					"choice_name": "Vitals",
+					"table_name": "Vitals",
+					"hit_penalty": -3,
+					"description": "An attack that misses by 1 hits the torso instead. Heart,\nlungs, kidneys, etc. Increase the wounding modifier for an\nimpaling (imp) or any piercing (pi-, pi, pi+, pi++) attack\nto x3. Increase the wounding modifier for a tight-beam\nburning (burn) attack to x2. Other attacks cannot target the\nvitals.",
+					"calc": {
+						"roll_range": "-",
+						"dr": {
+							"all": 1
+						}
+					}
+				}
+			]
+		},
+		"damage_progression": "basic_set",
+		"default_length_units": "cm",
+		"default_weight_units": "kg",
+		"user_description_display": "tooltip",
+		"modifiers_display": "inline",
+		"notes_display": "inline",
+		"skill_level_adj_display": "tooltip",
+		"use_multiplicative_modifiers": true,
+		"use_modifying_dice_plus_adds": true,
+		"show_spell_adj": true,
+		"exclude_unspent_points_from_total": false
+	},
+	"attributes": [
+		{
+			"attr_id": "st",
+			"adj": 4,
+			"calc": {
+				"value": 14,
+				"points": 40
+			}
+		},
+		{
+			"attr_id": "dx",
+			"adj": 4,
+			"calc": {
+				"value": 14,
+				"points": 80
+			}
+		},
+		{
+			"attr_id": "iq",
+			"adj": 1,
+			"calc": {
+				"value": 11,
+				"points": 20
+			}
+		},
+		{
+			"attr_id": "ht",
+			"adj": 0,
+			"calc": {
+				"value": 10,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "will",
+			"adj": 0,
+			"calc": {
+				"value": 11,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "fright_check",
+			"adj": 0,
+			"calc": {
+				"value": 11,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "per",
+			"adj": 1,
+			"calc": {
+				"value": 12,
+				"points": 5
+			}
+		},
+		{
+			"attr_id": "vision",
+			"adj": 0,
+			"calc": {
+				"value": 12,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "hearing",
+			"adj": 0,
+			"calc": {
+				"value": 12,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "taste_smell",
+			"adj": 0,
+			"calc": {
+				"value": 12,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "touch",
+			"adj": 0,
+			"calc": {
+				"value": 12,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "basic_speed",
+			"adj": 0,
+			"calc": {
+				"value": 6,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "basic_move",
+			"adj": 0,
+			"calc": {
+				"value": 6,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "fp",
+			"adj": 0,
+			"calc": {
+				"value": 10,
+				"current": 10,
+				"points": 0
+			}
+		},
+		{
+			"attr_id": "hp",
+			"adj": 0,
+			"calc": {
+				"value": 14,
+				"current": 14,
+				"points": 0
+			}
+		}
+	],
+	"traits": [
+		{
+			"id": "aca5d381-e972-4a6d-be82-48abf18bf08f",
+			"type": "trait",
+			"name": "Weapon Master (Spear and knife)",
+			"reference": "B99,MA48",
+			"tags": [
+				"Advantage",
+				"Mental"
+			],
+			"modifiers": [
+				{
+					"id": "8cd2d8e2-a670-4e01-b814-7becfb6a9422",
+					"type": "modifier",
+					"name": "One weapon",
+					"reference": "B99",
+					"cost": 20,
+					"cost_type": "points",
+					"disabled": true
+				},
+				{
+					"id": "9b9849fc-952f-4492-8778-42398ef38429",
+					"type": "modifier",
+					"name": "Two weapons",
+					"reference": "B99",
+					"cost": 25,
+					"cost_type": "points"
+				},
+				{
+					"id": "5a9f4e6e-b31b-4ade-8c3d-5361905efbf6",
+					"type": "modifier",
+					"name": "Small class",
+					"reference": "B99",
+					"cost": 30,
+					"cost_type": "points",
+					"disabled": true
+				},
+				{
+					"id": "3a13bb8a-02f5-4433-926b-243a8de165ef",
+					"type": "modifier",
+					"name": "Medium class",
+					"reference": "B99",
+					"cost": 35,
+					"cost_type": "points",
+					"disabled": true
+				},
+				{
+					"id": "5b3fb3ba-0062-4ff1-833f-bb9b23fe67b3",
+					"type": "modifier",
+					"name": "Large class",
+					"reference": "B99",
+					"cost": 40,
+					"cost_type": "points",
+					"disabled": true
+				}
+			],
+			"features": [
+				{
+					"type": "weapon_bonus",
+					"selection_type": "weapons_with_required_skill",
+					"name": {
+						"compare": "contains",
+						"qualifier": "knife"
+					},
+					"level": {
+						"compare": "at_least",
+						"qualifier": 2
+					},
+					"amount": 2,
+					"per_die": true
+				},
+				{
+					"type": "weapon_bonus",
+					"selection_type": "weapons_with_required_skill",
+					"name": {
+						"compare": "contains",
+						"qualifier": "knife"
+					},
+					"level": {
+						"compare": "at_least",
+						"qualifier": 1
+					},
+					"amount": 1,
+					"per_die": true
+				},
+				{
+					"type": "weapon_bonus",
+					"selection_type": "weapons_with_required_skill",
+					"name": {
+						"compare": "contains",
+						"qualifier": "spear"
+					},
+					"level": {
+						"compare": "at_least",
+						"qualifier": 2
+					},
+					"amount": 2,
+					"per_die": true
+				},
+				{
+					"type": "weapon_bonus",
+					"selection_type": "weapons_with_required_skill",
+					"name": {
+						"compare": "contains",
+						"qualifier": "spear"
+					},
+					"level": {
+						"compare": "at_least",
+						"qualifier": 1
+					},
+					"amount": 1,
+					"per_die": true
+				}
+			],
+			"calc": {
+				"points": 25
+			}
+		},
+		{
+			"id": "c1ef1a20-6241-49f9-a62d-8b887adc1804",
+			"type": "trait",
+			"name": "Fit",
+			"reference": "B55",
+			"notes": "Recover FP at twice the normal rate (but not FP spent for spells or psi powers)",
+			"tags": [
+				"Advantage",
+				"Physical"
+			],
+			"base_points": 5,
+			"features": [
+				{
+					"type": "conditional_modifier",
+					"situation": "to all HT rolls to stay conscious, avoid death, resist disease, or resist poison",
+					"amount": 1
+				}
+			],
+			"calc": {
+				"points": 5
+			}
+		},
+		{
+			"id": "458ea15a-23e3-4d56-be8d-934394c28fc8",
+			"type": "trait",
+			"name": "Natural Attacks",
+			"reference": "B271",
+			"weapons": [
+				{
+					"id": "476a286f-23f8-4969-bd56-b17ea52c8ae2",
+					"type": "melee_weapon",
+					"damage": {
+						"type": "cr",
+						"st": "thr",
+						"base": "-1"
+					},
+					"usage": "Bite",
+					"reach": "C",
+					"defaults": [
+						{
+							"type": "dx"
+						},
+						{
+							"type": "skill",
+							"name": "Brawling"
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "1d cr"
+					}
+				},
+				{
+					"id": "d92844fc-dfec-433f-bc90-d8ea0e6027c4",
+					"type": "melee_weapon",
+					"damage": {
+						"type": "cr",
+						"st": "thr",
+						"base": "-1"
+					},
+					"usage": "Punch",
+					"reach": "C",
+					"parry": "0",
+					"defaults": [
+						{
+							"type": "dx"
+						},
+						{
+							"type": "skill",
+							"name": "Boxing"
+						},
+						{
+							"type": "skill",
+							"name": "Brawling"
+						},
+						{
+							"type": "skill",
+							"name": "Karate"
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "1d cr",
+						"parry": "11"
+					}
+				},
+				{
+					"id": "446a375c-0858-4969-990e-e36d042c273a",
+					"type": "melee_weapon",
+					"damage": {
+						"type": "cr",
+						"st": "thr"
+					},
+					"usage": "Kick",
+					"reach": "C,1",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -2
+						},
+						{
+							"type": "skill",
+							"name": "Brawling",
+							"modifier": -2
+						},
+						{
+							"type": "skill",
+							"name": "Kicking"
+						},
+						{
+							"type": "skill",
+							"name": "Karate",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 14,
+						"damage": "1d+2 cr"
+					}
+				}
+			],
+			"calc": {
+				"points": 0
+			}
+		},
+		{
+			"id": "9932a60e-8cde-4a4a-92c5-b6d9275c9926",
+			"type": "trait",
+			"name": "Demophobia (Crowds)",
+			"reference": "B149",
+			"notes": "Any group of over a dozen people sets off this fear unless they are all well known to you. The self-control roll is at -1 for over 25 people, -2 for a crowd of 100 or more, -3 for 1,000, -4 for 10,000, and so on.",
+			"tags": [
+				"Disadvantage",
+				"Mental"
+			],
+			"base_points": -15,
+			"cr": 12,
+			"cr_adj": "action_penalty",
+			"calc": {
+				"points": -15
+			}
+		},
+		{
+			"id": "06d9e872-f566-47fd-969b-06988d144655",
+			"type": "trait",
+			"name": "Berserk",
+			"reference": "B124",
+			"notes": "Make a self-control roll any time you suffer damage over 1/4 your HP in the space of one second, and whenever you witness equivalent harm to a loved one",
+			"tags": [
+				"Disadvantage",
+				"Mental"
+			],
+			"modifiers": [
+				{
+					"id": "1760bea2-00ee-41fa-af42-452dbb538251",
+					"type": "modifier",
+					"name": "Battle Rage",
+					"cost": 50,
+					"disabled": true
+				}
+			],
+			"base_points": -10,
+			"cr": 12,
+			"calc": {
+				"points": -10
+			}
+		},
+		{
+			"id": "c0fc23c2-4d2a-4ce6-83fd-e96376dba74a",
+			"type": "trait",
+			"name": "No Sense of Humor",
+			"reference": "B146",
+			"tags": [
+				"Disadvantage",
+				"Mental"
+			],
+			"base_points": -10,
+			"features": [
+				{
+					"type": "reaction_bonus",
+					"situation": "from others in any situation where No Sense of Humor becomes evident",
+					"amount": -2
+				}
+			],
+			"calc": {
+				"points": -10
+			}
+		},
+		{
+			"id": "33fa1c75-bd3e-4f63-81b2-667cd438d0ef",
+			"type": "trait",
+			"name": "Bad Smell",
+			"reference": "B124",
+			"tags": [
+				"Disadvantage",
+				"Physical"
+			],
+			"base_points": -10,
+			"features": [
+				{
+					"type": "reaction_bonus",
+					"situation": "from most people and animals (although pests or carrion-eating scavengers might be attracted to you!)",
+					"amount": -2
+				}
+			],
+			"calc": {
+				"points": -10
+			}
+		},
+		{
+			"id": "268d370c-6004-4044-b82e-b8affc761bd4",
+			"type": "trait",
+			"name": "Intolerance (Sorcerers)",
+			"reference": "B140",
+			"tags": [
+				"Disadvantage",
+				"Mental"
+			],
+			"modifiers": [
+				{
+					"id": "0e1c693c-166b-417f-b6aa-1c6e04afbd68",
+					"type": "modifier",
+					"name": "Scope: Common",
+					"reference": "B140",
+					"cost": -5,
+					"cost_type": "points"
+				},
+				{
+					"id": "e21c80e8-cdd8-4040-b7a1-33af63210703",
+					"type": "modifier",
+					"name": "Scope: Occasional",
+					"reference": "B140",
+					"cost": -2,
+					"cost_type": "points",
+					"disabled": true
+				},
+				{
+					"id": "2655dfad-4f5e-4367-a524-fad35a774654",
+					"type": "modifier",
+					"name": "Scope: Rare",
+					"reference": "B140",
+					"cost": -1,
+					"cost_type": "points",
+					"disabled": true
+				},
+				{
+					"id": "522dbb89-3781-4d8b-bf72-a6d24892dce2",
+					"type": "modifier",
+					"name": "Scope: Anyone unlike you",
+					"reference": "B140",
+					"cost": -10,
+					"cost_type": "points",
+					"disabled": true
+				}
+			],
+			"features": [
+				{
+					"type": "reaction_bonus",
+					"situation": "from victims of your intolerance (may be as much as -5, at GM's discretion)",
+					"amount": -1
+				}
+			],
+			"calc": {
+				"points": -5
+			}
+		},
+		{
+			"id": "9055c880-fc50-4f50-826d-a1bf3848ec0f",
+			"type": "trait",
+			"name": "Attentive",
+			"reference": "B163",
+			"tags": [
+				"Mental",
+				"Quirk"
+			],
+			"base_points": -1,
+			"features": [
+				{
+					"type": "conditional_modifier",
+					"situation": "to skill rolls when working on lengthy tasks, but -3 to notice any important interruption",
+					"amount": 1
+				}
+			],
+			"calc": {
+				"points": -1
+			}
+		},
+		{
+			"id": "556a696d-58fd-4ac9-9874-cb3cd17beed4",
+			"type": "trait",
+			"name": "Dislikes Nuts",
+			"reference": "B164",
+			"tags": [
+				"Mental",
+				"Quirk"
+			],
+			"base_points": -1,
+			"calc": {
+				"points": -1
+			}
+		},
+		{
+			"id": "ca80a25c-7394-4a6c-b6ee-c39dd1842ab0",
+			"type": "trait",
+			"name": "Incompetence (Sex Appeal)",
+			"reference": "B164",
+			"notes": "May only know Sex Appeal at default (i.e. no points spent)",
+			"tags": [
+				"Mental",
+				"Quirk"
+			],
+			"base_points": -1,
+			"features": [
+				{
+					"type": "skill_bonus",
+					"selection_type": "skills_with_name",
+					"name": {
+						"compare": "is",
+						"qualifier": "Sex Appeal"
+					},
+					"amount": -4
+				}
+			],
+			"calc": {
+				"points": -1
+			}
+		},
+		{
+			"id": "320b0126-dfad-4c8d-a041-b0d7f1344e70",
+			"type": "trait",
+			"name": "Minor Addiction",
+			"reference": "B164",
+			"notes": "Coca",
+			"tags": [
+				"Mental",
+				"Quirk"
+			],
+			"base_points": -1,
+			"calc": {
+				"points": -1
+			}
+		},
+		{
+			"id": "d44c5b03-5d70-4af8-a433-9e84ea8d8996",
+			"type": "trait",
+			"name": "Habit",
+			"reference": "B164",
+			"notes": "Amuleto",
+			"tags": [
+				"Mental",
+				"Quirk"
+			],
+			"base_points": -1,
+			"calc": {
+				"points": -1
+			}
+		}
+	],
+	"skills": [
+		{
+			"id": "ff8635e7-8c5d-4795-8b72-dc8bf2168cea",
+			"type": "skill_container",
+			"open": true,
+			"children": [
+				{
+					"id": "8ae197ce-d4fa-40ea-8d03-946dcb908295",
+					"type": "skill",
+					"name": "Leatherworking",
+					"reference": "B205",
+					"tags": [
+						"Craft"
+					],
+					"difficulty": "dx/e",
+					"points": 1,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -4,
+						"level": 10,
+						"adjusted_level": 10,
+						"points": -10
+					},
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -4
+						}
+					],
+					"calc": {
+						"level": 14,
+						"rsl": "DX+0"
+					}
+				},
+				{
+					"id": "1b8a5998-a757-4507-a7e6-f40e0be5ea92",
+					"type": "skill",
+					"name": "Pharmacy",
+					"reference": "B213",
+					"tags": [
+						"Design",
+						"Invention",
+						"Medical",
+						"Plant"
+					],
+					"specialization": "Herbal",
+					"tech_level": "3",
+					"difficulty": "iq/h",
+					"points": 1,
+					"defaulted_from": {
+						"type": "iq",
+						"modifier": -6,
+						"level": 5,
+						"adjusted_level": 5,
+						"points": -5
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -6
+						},
+						{
+							"type": "skill",
+							"name": "Biology",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Herb Lore",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Naturalist",
+							"modifier": -5
+						}
+					],
+					"prereqs": {
+						"type": "prereq_list",
+						"all": true,
+						"prereqs": [
+							{
+								"type": "skill_prereq",
+								"has": true,
+								"name": {
+									"compare": "is",
+									"qualifier": "naturalist"
+								}
+							}
+						]
+					},
+					"calc": {
+						"level": 9,
+						"rsl": "IQ-2"
+					}
+				},
+				{
+					"id": "ac3c7bbf-589d-4ba8-8712-af22e197a966",
+					"type": "skill",
+					"name": "Poisons",
+					"reference": "B214",
+					"tags": [
+						"Criminal",
+						"Medical",
+						"Spy",
+						"Street"
+					],
+					"tech_level": "3",
+					"difficulty": "iq/h",
+					"points": 1,
+					"defaulted_from": {
+						"type": "skill",
+						"name": "Pharmacy",
+						"specialization": "Herbal",
+						"modifier": -3,
+						"level": 6,
+						"adjusted_level": 6,
+						"points": -6
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -6
+						},
+						{
+							"type": "skill",
+							"name": "Chemistry",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Pharmacy",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Physician",
+							"modifier": -3
+						}
+					],
+					"calc": {
+						"level": 9,
+						"rsl": "IQ-2"
+					}
+				},
+				{
+					"id": "94be941b-9e21-4bfe-ad32-7dd50304c12e",
+					"type": "skill",
+					"name": "Traps",
+					"reference": "B226",
+					"tags": [
+						"Criminal",
+						"Military",
+						"Street"
+					],
+					"tech_level": "3",
+					"difficulty": "iq/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "iq",
+						"modifier": -5,
+						"level": 6,
+						"adjusted_level": 6,
+						"points": -6
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Lockpicking",
+							"modifier": -3
+						}
+					],
+					"calc": {
+						"level": 10,
+						"rsl": "IQ-1"
+					}
+				},
+				{
+					"id": "b089b72a-c39a-426b-b959-5ab0bba777e7",
+					"type": "skill",
+					"name": "Housekeeping",
+					"reference": "B200",
+					"tags": [
+						"Everyman"
+					],
+					"difficulty": "iq/e",
+					"points": 2,
+					"defaulted_from": {
+						"type": "iq",
+						"modifier": -4,
+						"level": 7,
+						"adjusted_level": 7,
+						"points": -7
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -4
+						}
+					],
+					"calc": {
+						"level": 12,
+						"rsl": "IQ+1"
+					}
+				},
+				{
+					"id": "b8239aeb-9a29-48e4-8378-e68a1276b10f",
+					"type": "skill",
+					"name": "Cooking",
+					"reference": "B185",
+					"tags": [
+						"Everyman"
+					],
+					"specialization": "Beverage Making",
+					"difficulty": "iq/e",
+					"points": 1,
+					"defaulted_from": {
+						"type": "skill",
+						"name": "Housekeeping",
+						"modifier": -5,
+						"level": 7,
+						"adjusted_level": 7,
+						"points": -7
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Housekeeping",
+							"modifier": -5
+						}
+					],
+					"calc": {
+						"level": 11,
+						"rsl": "IQ+0"
+					}
+				}
+			],
+			"name": "Kraft"
+		},
+		{
+			"id": "3c0b0582-01bc-46be-9be8-cea5678dec90",
+			"type": "skill_container",
+			"open": true,
+			"children": [
+				{
+					"id": "760440f8-a812-4687-9ce8-f713962e334c",
+					"type": "skill",
+					"name": "Weather Sense",
+					"reference": "B209",
+					"tags": [
+						"Everyman",
+						"Exploration",
+						"Outdoor"
+					],
+					"tech_level": "3",
+					"difficulty": "iq/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "iq",
+						"modifier": -5,
+						"level": 6,
+						"adjusted_level": 6,
+						"points": -6
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -5
+						}
+					],
+					"calc": {
+						"level": 10,
+						"rsl": "IQ-1"
+					}
+				},
+				{
+					"id": "e95e6d28-40a6-4295-88ed-eb7aad8e968e",
+					"type": "skill",
+					"name": "Animal Handling",
+					"reference": "B175",
+					"tags": [
+						"Animal"
+					],
+					"specialization": "Dogs",
+					"difficulty": "iq/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "iq",
+						"modifier": -5,
+						"level": 6,
+						"adjusted_level": 6,
+						"points": -6
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -5
+						}
+					],
+					"calc": {
+						"level": 10,
+						"rsl": "IQ-1"
+					}
+				},
+				{
+					"id": "b093835a-3f2a-4647-a325-9551b29b1bc1",
+					"type": "skill",
+					"name": "Detect Lies",
+					"reference": "B187",
+					"tags": [
+						"Police",
+						"Social",
+						"Spy"
+					],
+					"difficulty": "per/h",
+					"points": 1,
+					"defaulted_from": {
+						"type": "per",
+						"modifier": -6,
+						"level": 6,
+						"adjusted_level": 6,
+						"points": -6
+					},
+					"defaults": [
+						{
+							"type": "per",
+							"modifier": -6
+						},
+						{
+							"type": "skill",
+							"name": "Body Language",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Psychology",
+							"modifier": -4
+						}
+					],
+					"calc": {
+						"level": 10,
+						"rsl": "Per-2"
+					}
+				},
+				{
+					"id": "b1e379fb-4ca8-4918-8014-ad24d015ff56",
+					"type": "skill",
+					"name": "Naturalist",
+					"reference": "B211",
+					"tags": [
+						"Animal",
+						"Exploration",
+						"Natural Science",
+						"Outdoor",
+						"Plant"
+					],
+					"specialization": "Earthlike",
+					"difficulty": "iq/h",
+					"points": 2,
+					"defaulted_from": {
+						"type": "iq",
+						"modifier": -6,
+						"level": 5,
+						"adjusted_level": 5,
+						"points": -5
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -6
+						},
+						{
+							"type": "skill",
+							"name": "Biology",
+							"modifier": -3
+						}
+					],
+					"calc": {
+						"level": 10,
+						"rsl": "IQ-1"
+					}
+				},
+				{
+					"id": "f8202e0c-447e-4a58-91fc-a5aac00c4611",
+					"type": "skill",
+					"name": "Herb Lore",
+					"reference": "B199",
+					"tags": [
+						"Plant"
+					],
+					"tech_level": "3",
+					"difficulty": "iq/vh",
+					"points": 2,
+					"prereqs": {
+						"type": "prereq_list",
+						"all": true,
+						"prereqs": [
+							{
+								"type": "skill_prereq",
+								"has": true,
+								"name": {
+									"compare": "contains",
+									"qualifier": "naturalist"
+								}
+							}
+						]
+					},
+					"calc": {
+						"level": 9,
+						"rsl": "IQ-2"
+					}
+				},
+				{
+					"id": "0e6984ae-511b-4887-8d59-b8d64b8b82ca",
+					"type": "skill",
+					"name": "Lip Reading",
+					"reference": "B205",
+					"tags": [
+						"Spy"
+					],
+					"difficulty": "per/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "per",
+						"modifier": -10,
+						"level": 2,
+						"adjusted_level": 2,
+						"points": -2
+					},
+					"defaults": [
+						{
+							"type": "per",
+							"modifier": -10
+						}
+					],
+					"calc": {
+						"level": 11,
+						"rsl": "Per-1"
+					}
+				}
+			],
+			"name": "Knowloge"
+		},
+		{
+			"id": "20442488-530f-4990-a111-6aef87c12c60",
+			"type": "skill_container",
+			"open": true,
+			"children": [
+				{
+					"id": "3b8f37d5-0797-44e4-bc2d-48879eaff03c",
+					"type": "skill",
+					"name": "Stealth",
+					"reference": "B222",
+					"tags": [
+						"Criminal",
+						"Police",
+						"Spy",
+						"Street"
+					],
+					"difficulty": "dx/a",
+					"points": 2,
+					"encumbrance_penalty_multiplier": 1,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -5,
+						"level": 9,
+						"adjusted_level": 9,
+						"points": -9
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -5
+						},
+						{
+							"type": "dx",
+							"modifier": -5
+						}
+					],
+					"calc": {
+						"level": 14,
+						"rsl": "DX+0"
+					}
+				},
+				{
+					"id": "04094bf6-3597-4126-b2e6-2cc38d7e2e82",
+					"type": "skill",
+					"name": "Escape",
+					"reference": "B192",
+					"tags": [
+						"Criminal",
+						"Street"
+					],
+					"difficulty": "dx/h",
+					"points": 1,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -6,
+						"level": 8,
+						"adjusted_level": 8,
+						"points": -8
+					},
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -6
+						}
+					],
+					"calc": {
+						"level": 12,
+						"rsl": "DX-2"
+					}
+				},
+				{
+					"id": "35075fcf-a54f-4f13-9578-a914e6b90a3b",
+					"type": "skill",
+					"name": "Camouflage",
+					"reference": "B183",
+					"tags": [
+						"Exploration",
+						"Military",
+						"Outdoor"
+					],
+					"difficulty": "iq/e",
+					"points": 1,
+					"defaulted_from": {
+						"type": "skill",
+						"name": "Survival",
+						"specialization": "Mountain",
+						"modifier": -2,
+						"level": 9,
+						"adjusted_level": 9,
+						"points": -9
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 11,
+						"rsl": "IQ+0"
+					}
+				},
+				{
+					"id": "07668f93-1796-4d1b-a73f-69ab4ca05722",
+					"type": "skill",
+					"name": "Mimicry",
+					"reference": "B210",
+					"tags": [
+						"Animal",
+						"Arts",
+						"Entertainment",
+						"Exploration",
+						"Outdoor"
+					],
+					"specialization": "Animal Sounds",
+					"difficulty": "iq/h",
+					"points": 1,
+					"defaulted_from": {
+						"type": "iq",
+						"modifier": -6,
+						"level": 5,
+						"adjusted_level": 5,
+						"points": -5
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -6
+						},
+						{
+							"type": "skill",
+							"name": "Naturalist",
+							"modifier": -6
+						},
+						{
+							"type": "skill",
+							"name": "Mimicry",
+							"specialization": "Bird Calls",
+							"modifier": -6
+						}
+					],
+					"calc": {
+						"level": 9,
+						"rsl": "IQ-2"
+					}
+				},
+				{
+					"id": "1a262550-e981-4843-bbaa-4f67d3897410",
+					"type": "skill",
+					"name": "Survival",
+					"reference": "B223",
+					"tags": [
+						"Exploration",
+						"Outdoor"
+					],
+					"specialization": "Mountain",
+					"difficulty": "per/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "skill",
+						"name": "Survival",
+						"specialization": "Desert",
+						"modifier": -3,
+						"level": 8,
+						"adjusted_level": 8,
+						"points": -8
+					},
+					"defaults": [
+						{
+							"type": "per",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Naturalist",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Arctic",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Desert",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Island/Beach",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Jungle",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Plains",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Swampland",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Woodlands",
+							"modifier": -3
+						}
+					],
+					"calc": {
+						"level": 11,
+						"rsl": "Per-1"
+					}
+				},
+				{
+					"id": "58d5c0bd-d0c9-41e5-8e69-0dba0e479571",
+					"type": "skill",
+					"name": "Survival",
+					"reference": "B223",
+					"tags": [
+						"Exploration",
+						"Outdoor"
+					],
+					"specialization": "Desert",
+					"difficulty": "per/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "skill",
+						"name": "Survival",
+						"specialization": "Woodlands",
+						"modifier": -3,
+						"level": 8,
+						"adjusted_level": 8,
+						"points": -8
+					},
+					"defaults": [
+						{
+							"type": "per",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Naturalist",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Arctic",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Island/Beach",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Jungle",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Mountain",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Plains",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Swampland",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Woodlands",
+							"modifier": -3
+						}
+					],
+					"calc": {
+						"level": 11,
+						"rsl": "Per-1"
+					}
+				},
+				{
+					"id": "89ded671-f399-4cdc-a70a-0e666d7dcb15",
+					"type": "skill",
+					"name": "Survival",
+					"reference": "B223",
+					"tags": [
+						"Exploration",
+						"Outdoor"
+					],
+					"specialization": "Woodlands",
+					"difficulty": "per/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "per",
+						"modifier": -5,
+						"level": 7,
+						"adjusted_level": 7,
+						"points": -7
+					},
+					"defaults": [
+						{
+							"type": "per",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Naturalist",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Arctic",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Desert",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Island/Beach",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Jungle",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Mountain",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Plains",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Survival",
+							"specialization": "Swampland",
+							"modifier": -3
+						}
+					],
+					"calc": {
+						"level": 11,
+						"rsl": "Per-1"
+					}
+				},
+				{
+					"id": "bbe229b6-8137-4ed9-b837-a2db4e84633d",
+					"type": "skill",
+					"name": "Tracking",
+					"reference": "B226",
+					"tags": [
+						"Exploration",
+						"Outdoor"
+					],
+					"difficulty": "per/a",
+					"points": 2,
+					"defaulted_from": {
+						"type": "per",
+						"modifier": -5,
+						"level": 7,
+						"adjusted_level": 7,
+						"points": -7
+					},
+					"defaults": [
+						{
+							"type": "per",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Naturalist",
+							"modifier": -5
+						}
+					],
+					"calc": {
+						"level": 12,
+						"rsl": "Per+0"
+					}
+				}
+			],
+			"name": "Survival"
+		},
+		{
+			"id": "fc42ca23-863a-4662-a24e-e3f66367ff51",
+			"type": "skill_container",
+			"open": true,
+			"children": [
+				{
+					"id": "c1816fda-6f6a-4d22-84c7-193ad7e6b9e7",
+					"type": "skill",
+					"name": "Knife",
+					"reference": "B208",
+					"tags": [
+						"Combat",
+						"Melee Combat",
+						"Weapon"
+					],
+					"difficulty": "dx/e",
+					"points": 4,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -4,
+						"level": 10,
+						"adjusted_level": 10,
+						"points": -10
+					},
+					"defaults": [
+						{
+							"type": "skill",
+							"name": "Force Sword",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Main-Gauche",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Shortsword",
+							"modifier": -3
+						},
+						{
+							"type": "dx",
+							"modifier": -4
+						}
+					],
+					"calc": {
+						"level": 16,
+						"rsl": "DX+2"
+					}
+				},
+				{
+					"id": "07dbf1d9-9c0b-4ef5-80ba-116c8fdce105",
+					"type": "skill",
+					"name": "Spear",
+					"reference": "B208",
+					"tags": [
+						"Combat",
+						"Melee Combat",
+						"Weapon"
+					],
+					"difficulty": "dx/a",
+					"points": 8,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -5,
+						"level": 9,
+						"adjusted_level": 9,
+						"points": -9
+					},
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Polearm",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Staff",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 16,
+						"rsl": "DX+2"
+					}
+				},
+				{
+					"id": "a0562b65-0c4b-4fc6-926d-442977f7f642",
+					"type": "skill",
+					"name": "Spear Thrower",
+					"reference": "B222",
+					"tags": [
+						"Combat",
+						"Ranged Combat",
+						"Weapon"
+					],
+					"difficulty": "dx/a",
+					"points": 4,
+					"defaulted_from": {
+						"type": "skill",
+						"name": "Thrown Weapon",
+						"specialization": "Spear",
+						"modifier": -4,
+						"level": 12,
+						"adjusted_level": 12,
+						"points": -12
+					},
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Thrown Weapon",
+							"specialization": "Spear",
+							"modifier": -4
+						}
+					],
+					"calc": {
+						"level": 15,
+						"rsl": "DX+1"
+					}
+				},
+				{
+					"id": "830d9ed5-e002-4aa7-8b2c-64c9614aa85d",
+					"type": "skill",
+					"name": "Thrown Weapon",
+					"reference": "B226",
+					"tags": [
+						"Combat",
+						"Ranged Combat",
+						"Weapon"
+					],
+					"specialization": "Spear",
+					"difficulty": "dx/e",
+					"points": 4,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -4,
+						"level": 10,
+						"adjusted_level": 10,
+						"points": -10
+					},
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Spear Thrower",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Thrown Weapon",
+							"specialization": "Harpoon",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 16,
+						"rsl": "DX+2"
+					}
+				},
+				{
+					"id": "df9acb50-bcc5-4461-87ac-c8e527974b2e",
+					"type": "skill",
+					"name": "Thrown Weapon",
+					"reference": "B226",
+					"tags": [
+						"Combat",
+						"Ranged Combat",
+						"Weapon"
+					],
+					"specialization": "Knife",
+					"difficulty": "dx/e",
+					"points": 1,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -4,
+						"level": 10,
+						"adjusted_level": 10,
+						"points": -10
+					},
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -4
+						}
+					],
+					"calc": {
+						"level": 14,
+						"rsl": "DX+0"
+					}
+				},
+				{
+					"id": "e698c43f-a202-48b6-b3d5-9802381e76ce",
+					"type": "skill",
+					"name": "Brawling",
+					"reference": "B182,MA55",
+					"tags": [
+						"Combat",
+						"Melee Combat",
+						"Weapon"
+					],
+					"difficulty": "dx/e",
+					"points": 4,
+					"features": [
+						{
+							"type": "weapon_bonus",
+							"selection_type": "weapons_with_required_skill",
+							"name": {
+								"compare": "is",
+								"qualifier": "Brawling"
+							},
+							"level": {
+								"compare": "at_least",
+								"qualifier": 2
+							},
+							"amount": 1,
+							"per_die": true
+						}
+					],
+					"calc": {
+						"level": 16,
+						"rsl": "DX+2"
+					}
+				}
+			],
+			"name": "Combat"
+		},
+		{
+			"id": "64f94623-1308-45cd-82d3-7e4c108abd98",
+			"type": "skill_container",
+			"open": true,
+			"children": [
+				{
+					"id": "94d86784-e518-4675-aa69-28d5127b9b81",
+					"type": "skill",
+					"name": "Swimming",
+					"reference": "B224",
+					"tags": [
+						"Athletic",
+						"Exploration",
+						"Outdoor"
+					],
+					"difficulty": "ht/e",
+					"points": 1,
+					"encumbrance_penalty_multiplier": 2,
+					"defaulted_from": {
+						"type": "ht",
+						"modifier": -4,
+						"level": 6,
+						"adjusted_level": 6,
+						"points": -6
+					},
+					"defaults": [
+						{
+							"type": "ht",
+							"modifier": -4
+						}
+					],
+					"calc": {
+						"level": 10,
+						"rsl": "HT+0"
+					}
+				},
+				{
+					"id": "7583a0e2-6a7d-469d-a368-d40b3865451f",
+					"type": "skill",
+					"name": "Climbing",
+					"reference": "B183",
+					"tags": [
+						"Athletic",
+						"Criminal",
+						"Exploration",
+						"Outdoor",
+						"Street"
+					],
+					"difficulty": "dx/a",
+					"points": 1,
+					"encumbrance_penalty_multiplier": 1,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -5,
+						"level": 9,
+						"adjusted_level": 9,
+						"points": -9
+					},
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -5
+						}
+					],
+					"calc": {
+						"level": 13,
+						"rsl": "DX-1"
+					}
+				},
+				{
+					"id": "92b67b88-a560-4625-b660-c3c4d7b600fd",
+					"type": "skill",
+					"name": "Hiking",
+					"reference": "B200",
+					"tags": [
+						"Athletic",
+						"Exploration",
+						"Outdoor"
+					],
+					"difficulty": "ht/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "ht",
+						"modifier": -5,
+						"level": 5,
+						"adjusted_level": 5,
+						"points": -5
+					},
+					"defaults": [
+						{
+							"type": "ht",
+							"modifier": -5
+						}
+					],
+					"calc": {
+						"level": 9,
+						"rsl": "HT-1"
+					}
+				},
+				{
+					"id": "3a1d4748-71a2-40ac-beb0-b0047cd64319",
+					"type": "skill",
+					"name": "Navigation",
+					"reference": "B211",
+					"tags": [
+						"Exploration",
+						"Outdoor",
+						"Technical",
+						"Vehicle"
+					],
+					"specialization": "Land",
+					"tech_level": "3",
+					"difficulty": "iq/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "iq",
+						"modifier": -5,
+						"level": 6,
+						"adjusted_level": 6,
+						"points": -6
+					},
+					"defaults": [
+						{
+							"type": "iq",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Cartography",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Mathematics",
+							"specialization": "Surveying",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Navigation",
+							"specialization": "Air",
+							"modifier": -2
+						},
+						{
+							"type": "skill",
+							"name": "Navigation",
+							"specialization": "Sea",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 10,
+						"rsl": "IQ-1"
+					}
+				},
+				{
+					"id": "efc425bc-d9b0-497e-84b0-2c504ca5ca3c",
+					"type": "skill",
+					"name": "Riding",
+					"reference": "B217",
+					"tags": [
+						"Animal"
+					],
+					"specialization": "Equines",
+					"difficulty": "dx/a",
+					"points": 1,
+					"defaulted_from": {
+						"type": "dx",
+						"modifier": -5,
+						"level": 9,
+						"adjusted_level": 9,
+						"points": -9
+					},
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Animal Handling",
+							"specialization": "Equines",
+							"modifier": -3
+						}
+					],
+					"calc": {
+						"level": 13,
+						"rsl": "DX-1"
+					}
+				}
+			],
+			"name": "travel"
+		}
+	],
+	"equipment": [
+		{
+			"id": "eb5cd43f-8d80-4e5a-a869-07cca773e074",
+			"type": "equipment",
+			"description": "Spear",
+			"reference": "B273",
+			"tech_level": "0",
+			"tags": [
+				"Melee Weapon",
+				"Missile Weapon"
+			],
+			"quantity": 1,
+			"value": 40,
+			"weight": "4 lb",
+			"weapons": [
+				{
+					"id": "a0ab4b29-3d89-4e1a-b631-242a5dd9061a",
+					"type": "melee_weapon",
+					"damage": {
+						"type": "imp",
+						"st": "thr",
+						"base": "2"
+					},
+					"strength": "9",
+					"usage": "Thrust",
+					"reach": "1*",
+					"parry": "0",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Spear"
+						},
+						{
+							"type": "skill",
+							"name": "Polearm",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Staff",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "2d+1 imp",
+						"parry": "11"
+					}
+				},
+				{
+					"id": "c08a3872-56ac-438a-91af-b5164b8af563",
+					"type": "melee_weapon",
+					"damage": {
+						"type": "imp",
+						"st": "thr",
+						"base": "3"
+					},
+					"strength": "9†",
+					"usage": "Thrust",
+					"reach": "1-2*",
+					"parry": "0",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Spear"
+						},
+						{
+							"type": "skill",
+							"name": "Polearm",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Staff",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "2d+2 imp",
+						"parry": "11"
+					}
+				},
+				{
+					"id": "144a40da-e63e-47c5-86df-45782f6c5c35",
+					"type": "ranged_weapon",
+					"damage": {
+						"type": "imp",
+						"st": "thr",
+						"base": "3"
+					},
+					"strength": "9",
+					"usage": "Thrown",
+					"accuracy": "2",
+					"range": "x1/x1.5",
+					"rate_of_fire": "1",
+					"shots": "T",
+					"bulk": "-6",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Thrown Weapon",
+							"specialization": "Spear"
+						},
+						{
+							"type": "skill",
+							"name": "Spear Thrower",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Thrown Weapon",
+							"specialization": "Harpoon",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "1d+3 imp",
+						"range": "14/21"
+					}
+				}
+			],
+			"equipped": true,
+			"calc": {
+				"extended_value": 40,
+				"extended_weight": "4 lb"
+			}
+		},
+		{
+			"id": "b8283de9-f5e3-485f-8240-075ef214188f",
+			"type": "equipment",
+			"description": "Atlatl w/Javelin",
+			"reference": "B276",
+			"tech_level": "0",
+			"tags": [
+				"Missile Weapon",
+				"UsesAmmoType:Javelin"
+			],
+			"quantity": 1,
+			"value": 30,
+			"weight": "2 lb",
+			"weapons": [
+				{
+					"id": "5d49995c-7fd8-4568-9607-6b59d4a4aee9",
+					"type": "ranged_weapon",
+					"damage": {
+						"type": "imp",
+						"st": "sw",
+						"base": "1"
+					},
+					"strength": "6",
+					"accuracy": "3",
+					"range": "x2/x3",
+					"rate_of_fire": "1",
+					"shots": "1(1)",
+					"bulk": "-4",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Spear Thrower"
+						},
+						{
+							"type": "skill",
+							"name": "Thrown Weapon (Spear)",
+							"modifier": -4
+						}
+					],
+					"calc": {
+						"level": 15,
+						"damage": "2d+3 imp",
+						"range": "28/42"
+					}
+				}
+			],
+			"equipped": true,
+			"calc": {
+				"extended_value": 30,
+				"extended_weight": "2 lb"
+			}
+		},
+		{
+			"id": "1d71ebfd-9b6d-4ac9-82b6-a1be8ed4ae96",
+			"type": "equipment",
+			"description": "Javelin",
+			"reference": "B273",
+			"tech_level": "1",
+			"tags": [
+				"AmmoType:Javelin",
+				"Melee Weapon",
+				"Missile Weapon"
+			],
+			"quantity": 1,
+			"value": 30,
+			"weight": "2 lb",
+			"weapons": [
+				{
+					"id": "707acb6e-2ee2-49ae-a12d-86e8a805256b",
+					"type": "melee_weapon",
+					"damage": {
+						"type": "imp",
+						"st": "thr",
+						"base": "1"
+					},
+					"strength": "6",
+					"usage": "Thrust",
+					"reach": "1",
+					"parry": "0",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -5
+						},
+						{
+							"type": "skill",
+							"name": "Spear"
+						},
+						{
+							"type": "skill",
+							"name": "Polearm",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Staff",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "2d imp",
+						"parry": "11"
+					}
+				},
+				{
+					"id": "fb94724e-fb6c-48d9-85b2-5c95a3a66a53",
+					"type": "ranged_weapon",
+					"damage": {
+						"type": "imp",
+						"st": "thr",
+						"base": "1"
+					},
+					"strength": "6",
+					"usage": "Thrown",
+					"accuracy": "3",
+					"range": "x1.5/x2.5",
+					"rate_of_fire": "1",
+					"shots": "T",
+					"bulk": "-4",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Thrown Weapon",
+							"specialization": "Spear"
+						},
+						{
+							"type": "skill",
+							"name": "Spear Thrower",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Thrown Weapon",
+							"specialization": "Harpoon",
+							"modifier": -2
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "1d+1 imp",
+						"range": "21/35"
+					}
+				}
+			],
+			"equipped": true,
+			"calc": {
+				"extended_value": 30,
+				"extended_weight": "2 lb"
+			}
+		},
+		{
+			"id": "8052e1ca-44bd-49e5-8117-f4cee5ba2782",
+			"type": "equipment",
+			"description": "Leather Jacket",
+			"reference": "B283",
+			"notes": "Flexible, concealable",
+			"tech_level": "1",
+			"tags": [
+				"Body Armor"
+			],
+			"quantity": 1,
+			"value": 50,
+			"weight": "4 lb",
+			"features": [
+				{
+					"type": "dr_bonus",
+					"location": "torso",
+					"amount": 1
+				},
+				{
+					"type": "dr_bonus",
+					"location": "vitals",
+					"amount": 1
+				},
+				{
+					"type": "dr_bonus",
+					"location": "arm",
+					"amount": 1
+				}
+			],
+			"equipped": true,
+			"calc": {
+				"extended_value": 50,
+				"extended_weight": "4 lb"
+			}
+		},
+		{
+			"id": "9aecf85b-cc07-4b98-97ce-752ed2b1d8d0",
+			"type": "equipment",
+			"description": "Leather Pants",
+			"reference": "B283",
+			"notes": "Flexible, concealable",
+			"tech_level": "1",
+			"tags": [
+				"Limb Armor"
+			],
+			"quantity": 1,
+			"value": 40,
+			"weight": "3 lb",
+			"features": [
+				{
+					"type": "dr_bonus",
+					"location": "groin",
+					"amount": 1
+				},
+				{
+					"type": "dr_bonus",
+					"location": "leg",
+					"amount": 1
+				}
+			],
+			"equipped": true,
+			"calc": {
+				"extended_value": 40,
+				"extended_weight": "3 lb"
+			}
+		},
+		{
+			"id": "4e3d556f-18f7-4589-866a-2032a39da596",
+			"type": "equipment",
+			"description": "Leather Cap",
+			"reference": "B284",
+			"notes": "Flexible",
+			"tech_level": "1",
+			"tags": [
+				"Headgear"
+			],
+			"quantity": 1,
+			"value": 32,
+			"features": [
+				{
+					"type": "dr_bonus",
+					"location": "skull",
+					"amount": 1
+				}
+			],
+			"equipped": true,
+			"calc": {
+				"extended_value": 32,
+				"extended_weight": "0 lb"
+			}
+		},
+		{
+			"id": "4073df0b-dea0-48fb-96da-870243297dde",
+			"type": "equipment",
+			"description": "Boots",
+			"reference": "B284",
+			"notes": "Flexible; Concealable",
+			"tech_level": "2",
+			"tags": [
+				"Footwear"
+			],
+			"quantity": 1,
+			"value": 80,
+			"weight": "3 lb",
+			"features": [
+				{
+					"type": "dr_bonus",
+					"location": "foot",
+					"amount": 2
+				},
+				{
+					"type": "weapon_bonus",
+					"selection_type": "weapons_with_name",
+					"specialization": {
+						"compare": "is",
+						"qualifier": "Kick"
+					},
+					"amount": 1
+				}
+			],
+			"equipped": true,
+			"calc": {
+				"extended_value": 80,
+				"extended_weight": "3 lb"
+			}
+		},
+		{
+			"id": "648899ab-71aa-44c3-ad3d-c5128bf44332",
+			"type": "equipment_container",
+			"open": true,
+			"description": "Backpack, Small",
+			"reference": "B288",
+			"tech_level": "1",
+			"tags": [
+				"Camping and Survival Gear"
+			],
+			"quantity": 1,
+			"value": 60,
+			"weight": "3 lb",
+			"prereqs": {
+				"type": "prereq_list",
+				"all": true,
+				"prereqs": [
+					{
+						"type": "contained_weight_prereq",
+						"has": true,
+						"qualifier": {
+							"compare": "at_most",
+							"qualifier": "40 lb"
+						}
+					}
+				]
+			},
+			"equipped": true,
+			"calc": {
+				"extended_value": 60,
+				"extended_weight": "3 lb"
+			}
+		},
+		{
+			"id": "ab67f3f9-4f0e-40d5-a92e-ce2a746212af",
+			"type": "equipment_container",
+			"open": true,
+			"description": "Pouch, Small",
+			"reference": "B288",
+			"tech_level": "1",
+			"tags": [
+				"Camping and Survival Gear"
+			],
+			"quantity": 1,
+			"value": 10,
+			"weight": "0.5 lb",
+			"prereqs": {
+				"type": "prereq_list",
+				"all": true,
+				"prereqs": [
+					{
+						"type": "contained_weight_prereq",
+						"has": true,
+						"qualifier": {
+							"compare": "at_most",
+							"qualifier": "3 lb"
+						}
+					}
+				]
+			},
+			"equipped": true,
+			"calc": {
+				"extended_value": 10,
+				"extended_weight": "0.5 lb"
+			}
+		},
+		{
+			"id": "a62b28da-8bf0-40bd-acd4-4f5c4971aecd",
+			"type": "equipment",
+			"description": "Large Knife",
+			"reference": "B272",
+			"tech_level": "0",
+			"tags": [
+				"Melee Weapon",
+				"Missile Weapon"
+			],
+			"quantity": 1,
+			"value": 40,
+			"weight": "1 lb",
+			"weapons": [
+				{
+					"id": "6fe06673-89a4-4f1a-a415-51ae243c9cb0",
+					"type": "melee_weapon",
+					"damage": {
+						"type": "cut",
+						"st": "sw",
+						"base": "-2"
+					},
+					"strength": "6",
+					"usage": "Swung",
+					"reach": "C,1",
+					"parry": "-1",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Knife"
+						},
+						{
+							"type": "skill",
+							"name": "Force Sword",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Main-Gauche",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Shortsword",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Sword!"
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "3d cut",
+						"parry": "10"
+					}
+				},
+				{
+					"id": "3f42a716-3051-497f-b287-912095dffcd5",
+					"type": "melee_weapon",
+					"damage": {
+						"type": "imp",
+						"st": "thr"
+					},
+					"strength": "6",
+					"usage": "Thrust",
+					"reach": "C",
+					"parry": "-1",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Knife"
+						},
+						{
+							"type": "skill",
+							"name": "Force Sword",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Main-Gauche",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Shortsword",
+							"modifier": -3
+						},
+						{
+							"type": "skill",
+							"name": "Sword!"
+						}
+					],
+					"calc": {
+						"level": 16,
+						"damage": "1d+3 imp",
+						"parry": "10"
+					}
+				},
+				{
+					"id": "ce852649-71ad-4350-b4c7-7d71931c4971",
+					"type": "ranged_weapon",
+					"damage": {
+						"type": "imp",
+						"st": "thr"
+					},
+					"strength": "6",
+					"usage": "Thrown",
+					"range": "x0.8/x1.5",
+					"rate_of_fire": "1",
+					"shots": "T",
+					"bulk": "-2",
+					"defaults": [
+						{
+							"type": "dx",
+							"modifier": -4
+						},
+						{
+							"type": "skill",
+							"name": "Thrown Weapon",
+							"specialization": "Knife"
+						}
+					],
+					"calc": {
+						"level": 14,
+						"damage": "1d imp",
+						"range": "11/21"
+					}
+				}
+			],
+			"equipped": true,
+			"calc": {
+				"extended_value": 40,
+				"extended_weight": "1 lb"
+			}
+		}
+	],
+	"other_equipment": [
+		{
+			"id": "770781ab-9958-494d-938c-5fa6a5630531",
+			"type": "equipment",
+			"description": "Personal Basics",
+			"reference": "B288",
+			"notes": "Minimum gear for camping: -2 to any Survival roll without it. Includes utensils, tinderbox or flint and steel, towel, etc., as TL permits.",
+			"tech_level": "0",
+			"tags": [
+				"Camping and Survival Gear"
+			],
+			"quantity": 1,
+			"value": 5,
+			"weight": "1 lb",
+			"calc": {
+				"extended_value": 5,
+				"extended_weight": "1 lb"
+			}
+		},
+		{
+			"id": "e9bcc86f-c564-41f6-975e-4b7203f872a5",
+			"type": "equipment",
+			"description": "Personal Basics",
+			"reference": "B288",
+			"notes": "Minimum gear for camping: -2 to any Survival roll without it. Includes utensils, tinderbox or flint and steel, towel, etc., as TL permits.",
+			"tech_level": "0",
+			"tags": [
+				"Camping and Survival Gear"
+			],
+			"quantity": 1,
+			"value": 5,
+			"weight": "1 lb",
+			"calc": {
+				"extended_value": 5,
+				"extended_weight": "1 lb"
+			}
+		},
+		{
+			"id": "a5a68abb-54f6-437e-bd67-7c6710dfff3f",
+			"type": "equipment",
+			"description": "Cord, 3/16\", 10 yards",
+			"reference": "B288",
+			"notes": "Supports 90 lbs.",
+			"tech_level": "0",
+			"tags": [
+				"Camping and Survival Gear"
+			],
+			"quantity": 1,
+			"value": 1,
+			"weight": "0.5 lb",
+			"calc": {
+				"extended_value": 1,
+				"extended_weight": "0.5 lb"
+			}
+		},
+		{
+			"id": "bfea128b-d31f-49c9-94a4-1d0ce7839d18",
+			"type": "equipment",
+			"description": "Lantern",
+			"reference": "B288",
+			"notes": "Uses 1 pint of oil per 24 hours",
+			"tech_level": "2",
+			"tags": [
+				"Camping and Survival Gear"
+			],
+			"quantity": 1,
+			"value": 20,
+			"weight": "2 lb",
+			"calc": {
+				"extended_value": 20,
+				"extended_weight": "2 lb"
+			}
+		},
+		{
+			"id": "ab1e1c2c-e5cc-4910-bacf-9c6cd90ee813",
+			"type": "equipment_container",
+			"open": true,
+			"description": "Wineskin",
+			"reference": "B288",
+			"tech_level": "0",
+			"tags": [
+				"Camping and Survival Gear"
+			],
+			"quantity": 1,
+			"value": 10,
+			"weight": "0.25 lb",
+			"prereqs": {
+				"type": "prereq_list",
+				"all": true,
+				"prereqs": [
+					{
+						"type": "contained_weight_prereq",
+						"has": true,
+						"qualifier": {
+							"compare": "at_most",
+							"qualifier": "8 lb"
+						}
+					}
+				]
+			},
+			"calc": {
+				"extended_value": 10,
+				"extended_weight": "0.25 lb"
+			}
+		},
+		{
+			"id": "b842c783-abbe-4c3a-a1de-b24cf41b8b10",
+			"type": "equipment",
+			"description": "Oil, Lantern, 1 Pint",
+			"reference": "B288",
+			"tech_level": "2",
+			"tags": [
+				"Camping and Survival Gear"
+			],
+			"quantity": 1,
+			"value": 2,
+			"weight": "1 lb",
+			"calc": {
+				"extended_value": 2,
+				"extended_weight": "1 lb"
+			}
+		}
+	],
+	"created_date": "2024-01-30T21:49:09-03:00",
+	"modified_date": "2024-02-07T19:23:13-03:00",
+	"calc": {
+		"swing": "2d",
+		"thrust": "1d",
+		"basic_lift": "39 lb",
+		"move": [
+			6,
+			4,
+			3,
+			2,
+			1
+		],
+		"dodge": [
+			9,
+			8,
+			7,
+			6,
+			5
+		]
+	}
+}

@@ -4,7 +4,7 @@ const TableOfContents = () => {
   const [tocItems, setTocItems] = useState([]);
 
   useEffect(() => {
-    const postContainer = document.querySelector(".main");
+    const postContainer = document.querySelector(".content");
     if (postContainer) {
       const headers = Array.from(postContainer.querySelectorAll("h1, h2, h3"));
       const items = headers.map((header) => {

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import "./Related.css";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/pages/_app"; // Import db from _app.js
+import { db } from "@/utils/firebase";
 
 export default function Related() {
   const [data, setData] = useState(null);

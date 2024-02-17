@@ -3,7 +3,7 @@ import Link from "next/link";
 import "./Navigation.css";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { db, auth } from "@/pages/_app"; // Importe sua configuração do Firebase
+import { db, auth } from "@/utils/firebase"; // Importe sua configuração do Firebase
 import { doc, getDoc } from "firebase/firestore";
 import { FaUserCircle } from "react-icons/fa";
 import { onAuthStateChanged } from "firebase/auth";

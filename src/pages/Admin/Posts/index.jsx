@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/pages/_app"; // Import db from _app.js
+import { db } from "@/utils/firebase";
 import { deleteDoc, updateDoc, doc } from "firebase/firestore";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";

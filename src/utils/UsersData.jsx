@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/pages/_app";
+import { db } from "@/utils/firebase";
 
 // Crie um Hook personalizado para usar o Contexto
 export async function getUsers() {

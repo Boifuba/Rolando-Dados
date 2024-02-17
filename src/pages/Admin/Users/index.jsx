@@ -6,7 +6,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "@/pages/_app";
+import { db } from "@/utils/firebase";
 import "./Users.css";
 import { useRequireLogin } from "@/utils/useRequireLogin";
 import Image from "next/image";

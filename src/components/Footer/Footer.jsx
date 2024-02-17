@@ -34,15 +34,7 @@ export default function Footer() {
           </li>
         </ul>
       </div>
-      <div className="footer-column">
-        <div className="footer-title">
-          <h3>Contatos</h3>
-        </div>
-        <ul>
-          <li> +55 21 96667-2252</li>
-          <li> balduros@gmail.com</li>
-        </ul>
-      </div>
+
       <div className="footer-column">
         <div className="footer-title">
           <h3>Outros</h3>

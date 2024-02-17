@@ -51,6 +51,7 @@
 .box ul li span {
     width: 20px;
     height: 20px;
+    border-radius: 50%;
     text-align: center;
     line-height: 20px;
     color: var(--details);
@@ -61,7 +62,7 @@
     transform: translateY(-2px);
 }
 
-.box ul li:hover span {
-    background: var(--text);
-    color: var(--menu-text)
-}
+/* .box ul li:hover span {
+    background: var(--details);
+    color: var(--text);
+} */

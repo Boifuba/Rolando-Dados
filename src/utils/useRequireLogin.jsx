@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/pages/_app"; // Import your Firebase auth object
+import { auth } from "@/utils/firebase";
 
 export function useRequireLogin() {
   const router = useRouter();

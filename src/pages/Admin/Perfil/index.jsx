@@ -1,6 +1,6 @@
 import "./Perfil.css";
 import { useEffect, useState, useRef } from "react";
-import { auth, db, storage } from "@/pages/_app";
+import { auth, db } from "@/utils/firebase";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { onAuthStateChanged } from "firebase/auth";
@@ -54,7 +54,7 @@ export default function Perfil() {
 
   const handleImageUpload = async (imageFile) => {
     if (uid) {
-      const storageRef = ref(storage, `avatars/${uid}`);
+      const storageRef = ref(db, `avatars/${uid}`);
       const reader = new FileReader();
       reader.readAsDataURL(imageFile);
       reader.onloadend = async (e) => {

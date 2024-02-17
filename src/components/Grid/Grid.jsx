@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import "./Grid.css";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/pages/_app"; // Import db from _app.js
+import { db } from "@/utils/firebase";
 import { useUser } from "@/utils/UserContext";
 
 export default function Grid() {
@@ -21,11 +22,23 @@ export default function Grid() {
 
   //Isso aqui é uma funçãoo que busca as tags dentro dos posts.
   const [tags, setTags] = useState([]);
-
+  //o firebase não aceita filtragem, então eu tenho que buscar todos os dados e filtrar no front-end para diminuir a qauantidade de dados que essa merda vai usar colocoando menos ccoisas na memoria do cliente.
   async function getCollectionData() {
     try {
       const a = await getDocs(collection(db, "posts"));
-      const data = a.docs.map((doc) => doc.data()); // Convert documents to JS objects
+      const data = a.docs.map((doc) => {
+        const item = doc.data();
+        return {
+          title: item.title,
+          img: item.img,
+          header: item.header,
+          author: item.author,
+          avatar: item.avatar,
+          path: item.path,
+          show: item.show,
+          tag: item.tag,
+        };
+      }); // Convert documents to JS objects with only necessary fields
       setData(data);
 
       // Fazer as tags únicas
@@ -35,7 +48,6 @@ export default function Grid() {
       console.error("Error fetching data: ", error);
     }
   }
-
   return (
     <div className="content">
       <div className="grid-navigation">
@@ -63,7 +75,7 @@ export default function Grid() {
                   (item.tag && item.tag.some((tag) => tag === selectedTag))
               )
               .map((item, index) => (
-                <a
+                <Link
                   key={index}
                   href={`/RPG/Posts/${item.path}`}
                   className={
@@ -105,7 +117,7 @@ export default function Grid() {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               ))}
         </div>
       </div>

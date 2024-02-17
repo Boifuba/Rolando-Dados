@@ -10,7 +10,7 @@ import {
 import { doc, getDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { db, auth } from "@/pages/_app"; // Import your Firebase configuration
+import { db, auth } from "@/utils/firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 
 export default function Login() {

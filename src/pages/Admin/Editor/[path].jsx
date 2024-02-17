@@ -1,5 +1,5 @@
 import "./Editor.css";
-import { db } from "@/pages/_app";
+import { db } from "@/utils/firebase";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -250,8 +250,6 @@ export default function Editor() {
                 onEditorChange={(content, editor) => setContent(content)}
                 apiKey="2s438yz73ps99ekdf1rqgi1scw9h5bnp8uhvz4yy78xp7qy6"
                 init={{
-                  plugins:
-                    "ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
                   toolbar:
                     "undo redo |code| blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
                   tinycomments_mode: "embedded",

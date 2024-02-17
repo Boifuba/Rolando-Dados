@@ -3,7 +3,7 @@ import "./Rolador.css";
 import Image from "next/image";
 import Head from "next/head";
 
-export default function Rolador() {
+export default function RoladorDeDados() {
   const [diceArray, setDiceArray] = useState([]);
   const [logs, setLogs] = useState([]);
   const [resultText, setResultText] = useState(""); // Adicionado estado para o texto do resultado
@@ -86,7 +86,7 @@ export default function Rolador() {
   //pro log
   function capitalizeWords(string) {
     return string.replace(/\b\w/g, (char, index, originalText) => {
-      // Se a palavra é "de", mantém em minúsculas
+      // Se a palavra e de, mantém em minúsculas
       if (originalText.substr(index, 3) === "de ") {
         return char.toLowerCase();
       }
@@ -107,7 +107,7 @@ export default function Rolador() {
     return capitalizeWords(formattedDate);
   }
 
-  //rich
+  //  rich
   function richSnipper() {
     return {
       __html: `{
@@ -165,6 +165,7 @@ export default function Rolador() {
 
         <meta name="theme-color" content="#ea4f4c"></meta>
       </Head>
+      *{" "}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={richSnipper()}
